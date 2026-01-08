@@ -1,8 +1,6 @@
 {
-  "name": "frontend-tests",
-  "version": "1.0.0",
   "scripts": {
-    "test": "npx playwright test"
+    "test": "set PLAYWRIGHT_BROWSERS_PATH=0 && npx playwright test"
   },
   "devDependencies": {
     "@playwright/test": "^1.41.0"
