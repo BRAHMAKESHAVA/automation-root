@@ -1,6 +1,6 @@
 {
   "scripts": {
-    "test": "set PLAYWRIGHT_BROWSERS_PATH=0 && npx playwright test"
+    "test": "npx playwright test"
   },
   "devDependencies": {
     "@playwright/test": "^1.41.0"
