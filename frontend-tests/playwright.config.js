@@ -5,10 +5,18 @@ console.log('PLAYWRIGHT CONFIG LOADED');
 export default defineConfig({
   testDir: './tests',
 
-  reporter: [['html', { open: 'never' }]],
+  reporter: [
+    ['html', { open: 'never' }],
+    ['list']
+  ],
+
+  timeout: 60000,
 
   use: {
-    headless: false,
-    slowMo: 1000
+    headless: true,                 //  MUST for Jenkins
+    viewport: { width: 1280, height: 720 },
+    screenshot: 'only-on-failure',
+    video: 'retain-on-failure',
+    trace: 'retain-on-failure'
   }
 });
