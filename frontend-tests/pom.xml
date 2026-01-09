@@ -15,51 +15,53 @@
         <plugins>
 
             <plugin>
-                <groupId>com.github.eirslett</groupId>
-                <artifactId>frontend-maven-plugin</artifactId>
-                <version>1.15.0</version>
+    <groupId>com.github.eirslett</groupId>
+    <artifactId>frontend-maven-plugin</artifactId>
+    <version>1.15.0</version>
 
-                <executions>
+    <executions>
 
-                    <!-- Install Node & npm -->
-                    <execution>
-                        <id>install-node-npm</id>
-                        <goals>
-                            <goal>install-node-and-npm</goal>
-                        </goals>
-                        <configuration>
-                            <nodeVersion>v18.19.0</nodeVersion>
-                        </configuration>
-                    </execution>
+        <!-- Install BOTH Node and npm -->
+        <execution>
+            <id>install-node-npm</id>
+            <goals>
+                <goal>install-node-and-npm</goal>
+            </goals>
+            <configuration>
+                <nodeVersion>v18.19.0</nodeVersion>
+                <npmVersion>9.8.1</npmVersion>
+            </configuration>
+        </execution>
 
-                    <!-- npm install -->
-                    <execution>
-                        <id>npm-install</id>
-                        <goals>
-                            <goal>npm</goal>
-                        </goals>
-                        <configuration>
-                            <arguments>install</arguments>
-                        </configuration>
-                    </execution>
+        <!-- npm install -->
+        <execution>
+            <id>npm-install</id>
+            <goals>
+                <goal>npm</goal>
+            </goals>
+            <configuration>
+                <arguments>install</arguments>
+            </configuration>
+        </execution>
 
-                    <!-- Run Playwright tests -->
-                    <execution>
-                        <id>playwright-test</id>
-                        <phase>test</phase>
-                        <goals>
-                            <goal>npm</goal>
-                        </goals>
-                        <configuration>
-                            <arguments>run test</arguments>
-                            <environmentVariables>
-                                <TAGS>${cucumber.tags}</TAGS>
-                            </environmentVariables>
-                        </configuration>
-                    </execution>
+        <!-- run Playwright -->
+        <execution>
+            <id>playwright-test</id>
+            <phase>test</phase>
+            <goals>
+                <goal>npm</goal>
+            </goals>
+            <configuration>
+                <arguments>run test</arguments>
+                <environmentVariables>
+                    <TAGS>${cucumber.tags}</TAGS>
+                </environmentVariables>
+            </configuration>
+        </execution>
 
-                </executions>
-            </plugin>
+    </executions>
+</plugin>
+
 
         </plugins>
     </build>
