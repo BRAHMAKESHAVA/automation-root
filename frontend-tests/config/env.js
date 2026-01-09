@@ -2,6 +2,7 @@ export const env = {
   url: 'https://soilztv43qydeftuzkqpqk2uxa0xjfvr.lambda-url.ap-south-1.on.aws/',
   username: '9491547337',
   password: 'Captain@7337',
-
-    loginButtonSelector: '#login'
+  usernameSelector: '#username',
+  passwordSelector: '#password',
+  loginButtonSelector: '#login'
 };

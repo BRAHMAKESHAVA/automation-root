@@ -1,10 +1,5 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
-         http://maven.apache.org/xsd/maven-4.0.0.xsd">
-
+<project>
     <modelVersion>4.0.0</modelVersion>
-
     <parent>
         <groupId>com.company</groupId>
         <artifactId>automation-root</artifactId>
@@ -12,22 +7,18 @@
     </parent>
 
     <artifactId>frontend-tests</artifactId>
+    <packaging>jar</packaging>
 
     <build>
         <plugins>
-
-            <!-- Install Playwright browsers -->
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>exec-maven-plugin</artifactId>
                 <version>3.1.0</version>
-
                 <executions>
-
-                    <!-- Install Playwright Chromium -->
                     <execution>
-                        <id>playwright-install</id>
-                        <phase>generate-resources</phase>
+                        <id>run-playwright</id>
+                        <phase>test</phase>
                         <goals>
                             <goal>exec</goal>
                         </goals>
@@ -35,30 +26,12 @@
                             <executable>npx</executable>
                             <arguments>
                                 <argument>playwright</argument>
-                                <argument>install</argument>
-                                <argument>chromium</argument>
-                            </arguments>
-                        </configuration>
-                    </execution>
-
-                    <!-- Run Playwright tests -->
-                    <execution>
-                        <id>npm-test</id>
-                        <phase>test</phase>
-                        <goals>
-                            <goal>exec</goal>
-                        </goals>
-                        <configuration>
-                            <executable>npm</executable>
-                            <arguments>
                                 <argument>test</argument>
                             </arguments>
                         </configuration>
                     </execution>
-
                 </executions>
             </plugin>
-
         </plugins>
     </build>
 

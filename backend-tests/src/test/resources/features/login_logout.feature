@@ -1,7 +1,13 @@
-@smoke @login
-Feature: Backend Login Logout
+Feature: Login Feature
 
-  Scenario: Login and Logout API
-    Given user sends login request
-    When user sends logout request
-    Then login logout should be successful
+  @smoke @backend
+  Scenario: Valid login
+    Given user opens backend app
+    When user enters valid credentials
+    Then login should be successful
+
+  @regression @backend
+  Scenario: Invalid login
+    Given user opens backend app
+    When user enters invalid credentials
+    Then error message should be shown

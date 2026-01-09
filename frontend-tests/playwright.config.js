@@ -1,12 +1,10 @@
-const { defineConfig } = require('@playwright/test');
+import { defineConfig } from '@playwright/test';
 
-console.log('PLAYWRIGHT CONFIG LOADED');
-
-module.exports = defineConfig({
+export default defineConfig({
   testDir: './tests',
-  timeout: 60000,
-  reporter: [['html', { open: 'never' }]],
   use: {
-    headless: true
+    headless: false,
+    screenshot: 'only-on-failure',
+    video: 'retain-on-failure'
   }
 });

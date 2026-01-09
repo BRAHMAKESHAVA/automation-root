@@ -1,7 +1,7 @@
 package com.company.backend.hooks;
 
-import io.cucumber.java.After;
 import io.cucumber.java.Before;
+import io.cucumber.java.After;
 
 public class Hooks {
 

@@ -1,87 +1,59 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
-         http://maven.apache.org/xsd/maven-4.0.0.xsd">
-
-    <!-- ================= BASIC PROJECT INFO ================= -->
+<project>
     <modelVersion>4.0.0</modelVersion>
-
     <parent>
         <groupId>com.company</groupId>
         <artifactId>automation-root</artifactId>
         <version>1.0-SNAPSHOT</version>
     </parent>
+    <properties>
+        <cucumber.tags></cucumber.tags>
+    </properties>
 
     <artifactId>backend-tests</artifactId>
     <packaging>jar</packaging>
 
-    <!-- ================= PROPERTIES ================= -->
-    <properties>
-        <maven.compiler.source>11</maven.compiler.source>
-        <maven.compiler.target>11</maven.compiler.target>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <cucumber.version>7.14.0</cucumber.version>
-        <testng.version>7.9.0</testng.version>
-        <cucumber.filter.tags></cucumber.filter.tags>
-    </properties>
 
-    <!-- ================= DEPENDENCIES ================= -->
     <dependencies>
+        <!-- Cucumber + TestNG + Spring -->
 
-        <!-- Cucumber Java -->
-        <dependency>
-            <groupId>io.cucumber</groupId>
-            <artifactId>cucumber-java</artifactId>
-            <version>${cucumber.version}</version>
-        </dependency>
+            <!-- Cucumber Java -->
+            <dependency>
+                <groupId>io.cucumber</groupId>
+                <artifactId>cucumber-java</artifactId>
+                <version>7.14.0</version>
+                <scope>test</scope>
+            </dependency>
 
-        <!-- Cucumber TestNG -->
-        <dependency>
-            <groupId>io.cucumber</groupId>
-            <artifactId>cucumber-testng</artifactId>
-            <version>${cucumber.version}</version>
-        </dependency>
+            <!-- Cucumber TestNG -->
+            <dependency>
+                <groupId>io.cucumber</groupId>
+                <artifactId>cucumber-testng</artifactId>
+                <version>7.14.0</version>
+                <scope>test</scope>
+            </dependency>
 
-        <!-- TestNG -->
-        <dependency>
-            <groupId>org.testng</groupId>
-            <artifactId>testng</artifactId>
-            <version>${testng.version}</version>
-            <scope>test</scope>
-        </dependency>
+            <!-- TestNG -->
+            <dependency>
+                <groupId>org.testng</groupId>
+                <artifactId>testng</artifactId>
+                <version>7.8.0</version>
+                <scope>test</scope>
+            </dependency>
 
     </dependencies>
 
-    <!-- ================= BUILD ================= -->
     <build>
         <plugins>
-
-            <!-- Compiler Plugin -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.11.0</version>
-                <configuration>
-                    <source>${maven.compiler.source}</source>
-                    <target>${maven.compiler.target}</target>
-                </configuration>
-            </plugin>
-
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>3.2.5</version>
                 <configuration>
-                    <suiteXmlFiles>
-                        <suiteXmlFile>src/test/resources/testng.xml</suiteXmlFile>
-                    </suiteXmlFiles>
                     <systemPropertyVariables>
-                        <cucumber.filter.tags>${cucumber.filter.tags}</cucumber.filter.tags>
+                        <cucumber.filter.tags>${cucumber.tags}</cucumber.filter.tags>
                     </systemPropertyVariables>
                 </configuration>
             </plugin>
-
         </plugins>
     </build>
-
 </project>
