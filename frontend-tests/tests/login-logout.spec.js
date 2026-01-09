@@ -12,7 +12,7 @@ test('Valid login', async ({ page }) => {
   // wait for SPA network calls
   await page.waitForLoadState('networkidle');
 
-  // ✅ strongest assertion for your app
+  //  strongest assertion for your app
   await expect(page.locator(env.loginButtonSelector)).toBeHidden();
 
   // OR (optional extra check)
