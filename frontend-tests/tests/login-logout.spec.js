@@ -12,9 +12,15 @@ test('Login and Logout UI', async ({ page }) => {
   // 2. Login
   await login.login(env.username, env.password);
 
-  //  3. Verify login success using DASHBOARD element
+  // Debug screenshot
+  await page.screenshot({ path: 'test-results/before-dashboard-check.png', fullPage: true });
+
+  // Wait until network is idle
+  await page.waitForLoadState('networkidle');
+
+  // 3. Verify login success
   await expect(
-    page.locator('text=Add New Partner')
+    page.getByRole('button', { name: 'Add New Partner' })
   ).toBeVisible({ timeout: 30000 });
 
   // 4. Handle logout confirm
@@ -23,13 +29,14 @@ test('Login and Logout UI', async ({ page }) => {
     await dialog.accept();
   });
 
-  // 5. Click logout (now safe)
+  // 5. Click logout
   await page.locator('text=Logout').click();
 
   // 6. Wait for page to stabilize
   await page.waitForLoadState('networkidle');
 
   // 7. Verify login page
-  await expect(page.locator('#login'))
-    .toBeVisible({ timeout: 30000 });
+  await expect(
+    page.locator('#login')
+  ).toBeVisible({ timeout: 30000 });
 });
