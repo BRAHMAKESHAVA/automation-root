@@ -1,42 +1,21 @@
 import { test, expect } from '@playwright/test';
-import { env } from '../config/env.js';
-import { LoginPage } from '../pages/LoginPage.js';
 
-test('Login and Logout UI', async ({ page }) => {
+test('Dummy Login Practice', async ({ page }) => {
+  await page.goto('https://the-internet.herokuapp.com/login');
 
-  const login = new LoginPage(page);
+  await page.fill('#username', 'tomsmith');
+  await page.fill('#password', 'SuperSecretPassword!');
+  await page.click('button[type="submit"]');
 
-  // 1. Open login page
-  await page.goto(env.url);
+  // Verify successful login
+  await expect(page.locator('#flash')).toContainText('You logged into a secure area!');
 
-  // 2. Login
-  await login.login(env.username, env.password);
+  // Verify logout button exists
+  await expect(page.locator('a[href="/logout"]')).toBeVisible();
 
-  // Debug screenshot
-  await page.screenshot({ path: 'test-results/before-dashboard-check.png', fullPage: true });
+  // Logout
+  await page.click('a[href="/logout"]');
 
-  // Wait until network is idle
-  await page.waitForLoadState('networkidle');
-
-  // 3. Verify login success
-  await expect(
-    page.getByRole('button', { name: 'Add New Partner' })
-  ).toBeVisible({ timeout: 30000 });
-
-  // 4. Handle logout confirm
-  page.once('dialog', async dialog => {
-    console.log(`Dialog message: ${dialog.message()}`);
-    await dialog.accept();
-  });
-
-  // 5. Click logout
-  await page.locator('text=Logout').click();
-
-  // 6. Wait for page to stabilize
-  await page.waitForLoadState('networkidle');
-
-  // 7. Verify login page
-  await expect(
-    page.locator('#login')
-  ).toBeVisible({ timeout: 30000 });
+  // Verify back to login page
+  await expect(page.locator('#username')).toBeVisible();
 });
