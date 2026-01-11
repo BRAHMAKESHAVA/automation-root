@@ -1,49 +1,113 @@
-<project>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+         http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
     <modelVersion>4.0.0</modelVersion>
+
     <parent>
         <groupId>com.company</groupId>
         <artifactId>automation-root</artifactId>
         <version>1.0-SNAPSHOT</version>
     </parent>
-    <properties>
-        <cucumber.tags></cucumber.tags>
-    </properties>
 
     <artifactId>backend-tests</artifactId>
     <packaging>jar</packaging>
 
+    <!-- ================= PROPERTIES ================= -->
+    <properties>
+        <java.version>21</java.version>
+        <spring.boot.version>3.2.0</spring.boot.version>
 
+        <cucumber.tags></cucumber.tags>
+    </properties>
+
+    <!-- ================= SPRING BOOT BOM ================= -->
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-dependencies</artifactId>
+                <version>${spring.boot.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <!-- ================= DEPENDENCIES ================= -->
     <dependencies>
-        <!-- Cucumber + TestNG + Spring -->
 
-            <!-- Cucumber Java -->
-            <dependency>
-                <groupId>io.cucumber</groupId>
-                <artifactId>cucumber-java</artifactId>
-                <version>7.14.0</version>
-                <scope>test</scope>
-            </dependency>
+        <!-- Spring Boot Core -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter</artifactId>
+        </dependency>
 
-            <!-- Cucumber TestNG -->
-            <dependency>
-                <groupId>io.cucumber</groupId>
-                <artifactId>cucumber-testng</artifactId>
-                <version>7.14.0</version>
-                <scope>test</scope>
-            </dependency>
+        <!-- Spring Boot Web (runs on port 8080) -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
 
-            <!-- TestNG -->
-            <dependency>
-                <groupId>org.testng</groupId>
-                <artifactId>testng</artifactId>
-                <version>7.8.0</version>
-                <scope>test</scope>
-            </dependency>
+        <!-- ========== CUCUMBER + TESTNG (Your existing setup) ========== -->
+
+        <!-- Cucumber Java -->
+        <dependency>
+            <groupId>io.cucumber</groupId>
+            <artifactId>cucumber-java</artifactId>
+            <version>7.14.0</version>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- Cucumber TestNG -->
+        <dependency>
+            <groupId>io.cucumber</groupId>
+            <artifactId>cucumber-testng</artifactId>
+            <version>7.14.0</version>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- TestNG -->
+        <dependency>
+            <groupId>org.testng</groupId>
+            <artifactId>testng</artifactId>
+            <version>7.8.0</version>
+            <scope>test</scope>
+        </dependency>
 
     </dependencies>
 
+    <!-- ================= BUILD ================= -->
     <build>
         <plugins>
+
+            <!-- Makes your JAR executable (fixes "no main manifest attribute") -->
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <version>${spring.boot.version}</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>repackage</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <!-- Compiler -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.11.0</version>
+                <configuration>
+                    <source>${java.version}</source>
+                    <target>${java.version}</target>
+                </configuration>
+            </plugin>
+
+            <!-- Surefire for Cucumber + TestNG -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
@@ -54,6 +118,8 @@
                     </systemPropertyVariables>
                 </configuration>
             </plugin>
+
         </plugins>
     </build>
+
 </project>
